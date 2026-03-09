@@ -132,3 +132,20 @@ func (h *Handler) DeletePerson(c *gin.Context) {
 	// 204 means success but no body to return
 	c.Status(http.StatusNoContent)
 }
+
+// GET /items
+// fetches from reddis and return the user
+func (h *Handler) GetAll(c *gin.Context) {
+	people, err := redisDB.ListAllPeople(redisDB.Ctx, h.RedisClient)
+	if err != nil {
+		// redis.Nil means the keys starting with
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to retieve people"})
+		return
+	}
+	if len(people) == 0 {
+		c.JSON(http.StatusOK, gin.H{"message": "no people found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, people)
+}

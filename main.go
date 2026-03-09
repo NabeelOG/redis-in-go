@@ -25,6 +25,7 @@ func main() {
 	r.GET("/items/:id", h.GetPerson)
 	r.PUT("/items/:id", h.UpdatePerson)
 	r.DELETE("/items/:id", h.DeletePerson)
+	r.GET("/allitems", h.GetAll)
 
 	// 5. Start server
 	if err := r.Run(":8080"); err != nil {
