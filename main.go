@@ -17,7 +17,7 @@ func main() {
 	cfg := config.Load()
 
 	// 2. Connect to Redis
-	redisClient := redisDB.NewClient()
+	redisClient := redisDB.NewClient(cfg)
 	defer redisClient.Close()
 
 	// 3. Connect to PostgreSQL
